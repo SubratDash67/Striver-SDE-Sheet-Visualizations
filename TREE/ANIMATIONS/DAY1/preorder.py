@@ -20,11 +20,13 @@ def build_tree(nodes, index=0):
 
 def preorder_traversal(root, graph, pos, speed):
     result = []
+    traversed_nodes = []
 
     def traverse(node):
         if node:
             result.append(node.val)
-            highlight_node(graph, pos, node.val, speed)
+            traversed_nodes.append(node.val)
+            highlight_node(graph, pos, node.val, traversed_nodes, speed)
             traverse(node.left)
             traverse(node.right)
 
@@ -33,11 +35,34 @@ def preorder_traversal(root, graph, pos, speed):
     return result
 
 
-def highlight_node(graph, pos, node_val, speed):
-    colors = ["lightblue" if node != node_val else "yellow" for node in graph.nodes]
+def highlight_node(graph, pos, node_val, traversed_nodes, speed):
+    colors = [
+        "lightblue" if node not in traversed_nodes else "orange" for node in graph.nodes
+    ]
+    colors = [
+        "yellow" if node == node_val else colors[i]
+        for i, node in enumerate(graph.nodes)
+    ]
     plt.clf()
     nx.draw(
-        graph, pos, with_labels=True, node_color=colors, node_size=800, font_size=16
+        graph,
+        pos,
+        with_labels=True,
+        node_color=colors,
+        node_size=800,
+        font_size=16,
+        arrows=True,
+        arrowstyle="->",
+        arrowsize=20,
+    )
+    ax = plt.gca()
+    ax.text(
+        0.5,
+        1.05,
+        f"Traversal Path: {traversed_nodes}",
+        transform=ax.transAxes,
+        fontsize=12,
+        ha="center",
     )
     plt.pause(speed)
 
@@ -99,6 +124,6 @@ graph, pos = build_graph_from_tree(root)
 plt.ion()
 fig, ax = plt.subplots(figsize=(10, 8))
 
-preorder_traversal(root, graph, pos, 1.5)
+preorder_traversal(root, graph, pos, 2)
 plt.ioff()
 plt.show()

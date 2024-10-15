@@ -20,24 +20,49 @@ def build_tree(nodes, index=0):
 
 def postorder_traversal(root, graph, pos, speed):
     result = []
+    traversed_nodes = []
 
     def traverse(node):
         if node:
             traverse(node.left)
             traverse(node.right)
             result.append(node.val)
-            highlight_node(graph, pos, node.val, speed)
+            traversed_nodes.append(node.val)
+            highlight_node(graph, pos, node.val, speed, traversed_nodes)
 
     traverse(root)
     print(f"Postorder Traversal: {result}")
     return result
 
 
-def highlight_node(graph, pos, node_val, speed):
-    colors = ["lightblue" if node != node_val else "yellow" for node in graph.nodes]
+def highlight_node(graph, pos, node_val, speed, traversed_nodes):
+    colors = [
+        "lightblue" if node not in traversed_nodes else "orange" for node in graph.nodes
+    ]
+    colors = [
+        "yellow" if node == node_val else colors[i]
+        for i, node in enumerate(graph.nodes)
+    ]
     plt.clf()
     nx.draw(
-        graph, pos, with_labels=True, node_color=colors, node_size=800, font_size=16
+        graph,
+        pos,
+        with_labels=True,
+        node_color=colors,
+        node_size=800,
+        font_size=16,
+        arrows=True,
+        arrowstyle="->",
+        arrowsize=20,
+    )
+    ax = plt.gca()
+    ax.text(
+        0.5,
+        1.02,
+        f"Current Postorder Traversal: {traversed_nodes}",
+        transform=ax.transAxes,
+        fontsize=12,
+        ha="center",
     )
     plt.pause(speed)
 
@@ -99,6 +124,6 @@ graph, pos = build_graph_from_tree(root)
 plt.ion()
 fig, ax = plt.subplots(figsize=(10, 8))
 
-postorder_traversal(root, graph, pos, 1.5)
+postorder_traversal(root, graph, pos, 2)
 plt.ioff()
 plt.show()

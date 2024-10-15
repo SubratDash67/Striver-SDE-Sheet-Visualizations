@@ -25,7 +25,7 @@ def morris_inorder_traversal(root, graph, pos, speed):
     while cur:
         if cur.left is None:
             result.append(cur.val)
-            highlight_node(graph, pos, cur.val, speed)
+            highlight_node(graph, pos, cur.val, speed, result)
             cur = cur.right
         else:
             prev = cur.left
@@ -37,18 +37,27 @@ def morris_inorder_traversal(root, graph, pos, speed):
             else:
                 prev.right = None
                 result.append(cur.val)
-                highlight_node(graph, pos, cur.val, speed)
+                highlight_node(graph, pos, cur.val, speed, result)
                 cur = cur.right
 
     print(f"Morris Inorder Traversal: {result}")
     return result
 
 
-def highlight_node(graph, pos, node_val, speed):
+def highlight_node(graph, pos, node_val, speed, result):
     colors = ["lightblue" if node != node_val else "yellow" for node in graph.nodes]
     plt.clf()
     nx.draw(
         graph, pos, with_labels=True, node_color=colors, node_size=800, font_size=16
+    )
+    ax = plt.gca()
+    ax.text(
+        0.5,
+        1.02,
+        f"Current Inorder Traversal: {result}",
+        transform=ax.transAxes,
+        fontsize=12,
+        ha="center",
     )
     plt.pause(speed)
 
