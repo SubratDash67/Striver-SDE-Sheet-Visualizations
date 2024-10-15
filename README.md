@@ -17,8 +17,8 @@ To clone and run the visualizations, follow the steps below:
 1. **Clone the Repository**:
 
     ```bash
-    git clone https://github.com/your-username/your-repo-name.git
-    cd your-repo-name
+    git clone https://github.com/SubratDash67/Striver-SDE-Sheet-Visualizations.git
+    cd Striver-SDE-Sheet-Visualizations
     ```
 
 2. **Install Required Packages**:
