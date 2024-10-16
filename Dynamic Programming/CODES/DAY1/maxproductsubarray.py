@@ -14,5 +14,5 @@ def maxProductSubArray(arr):
     return ans
 
 
-arr = [1, 2, -3, 0, -4, -5]
+arr = [9, 2, 5, 3, 7, 11, 8, 10, 19, 6]
 print("The maximum product subarray is:", maxProductSubArray(arr))
