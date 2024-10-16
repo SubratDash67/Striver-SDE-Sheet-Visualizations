@@ -1,6 +1,5 @@
 def maxProductSubArray(arr):
     n = len(arr)
-
     pre, suff = 1, 1
     ans = float("-inf")
     for i in range(n):
