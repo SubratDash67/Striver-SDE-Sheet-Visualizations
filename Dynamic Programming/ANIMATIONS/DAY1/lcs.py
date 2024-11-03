@@ -21,8 +21,8 @@ BUTTON_HOVER_COLOR = (100, 149, 237)
 
 font = pygame.font.SysFont("comicsans", 30)
 
-text1 = "ABAABA"
-text2 = "BABBAB"
+text1 = "AABABAA"
+text2 = "BBAABAA"
 
 index_i, index_j = 1, 1
 animation_speed = 1500
